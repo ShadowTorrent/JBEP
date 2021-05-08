@@ -8,7 +8,7 @@ Implemented BEPs:
 
 | BEP  | Title | Status |
 | ------------- | ------------- | ------------- |
-| [BEP5](http://www.bittorrent.org/beps/bep_0005.html) | DHT Protocol | No |
+| [BEP5](http://www.bittorrent.org/beps/bep_0005.html) | DHT Protocol | Partial |
 | [BEP6](http://www.bittorrent.org/beps/bep_0006.html) | Fast Extension | No |
 | [BEP9](http://www.bittorrent.org/beps/bep_0009.html) | Extension for Peers to Send Metadata Files | No |
 | [BEP10](http://www.bittorrent.org/beps/bep_0010.html) | Extension Protocol | No |
