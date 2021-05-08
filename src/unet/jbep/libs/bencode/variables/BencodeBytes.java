@@ -1,4 +1,4 @@
-package unet.jbep.bencode.variables;
+package unet.jbep.libs.bencode.variables;
 
 import java.text.ParseException;
 import java.util.Arrays;

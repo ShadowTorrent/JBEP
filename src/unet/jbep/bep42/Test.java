@@ -32,5 +32,6 @@ public class Test {
         System.out.println("TEST: "+new Bep42(InetAddress.getByName("84.124.73.14"), 1).hasSecureID());
         System.out.println("TEST: "+new Bep42(InetAddress.getByName("43.213.53.83"), 1).hasSecureID());
         System.out.println();
+        System.out.println("TEST: "+new Bep42(InetAddress.getByName("43.213.53.83"), 1));
     }
 }

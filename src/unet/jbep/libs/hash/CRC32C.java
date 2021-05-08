@@ -1,4 +1,4 @@
-package unet.jbep.hash;
+package unet.jbep.libs.hash;
 
 import java.util.zip.Checksum;
 

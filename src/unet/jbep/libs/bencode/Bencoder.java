@@ -1,6 +1,6 @@
-package unet.jbep.bencode;
+package unet.jbep.libs.bencode;
 
-import unet.jbep.bencode.variables.*;
+import unet.jbep.libs.bencode.variables.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

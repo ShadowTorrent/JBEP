@@ -1,12 +1,13 @@
 package unet.jbep.bep42;
 
-import unet.jbep.hash.CRC32C;
+import unet.jbep.libs.hash.CRC32C;
 
 import java.net.InetAddress;
 import java.util.Random;
 
 public class Bep42 {
 
+    private static final int NODE_LENGTH = 20;
     private final byte[] v4_mask = { 0x03, 0x0f, 0x3f, (byte) 0xff };
     private final byte[] v6_mask = { 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, (byte) 0xff };
 
@@ -15,19 +16,23 @@ public class Bep42 {
     private byte[] bid;
 
     public Bep42(InetAddress address, int port, byte[] bid){
+        if(bid.length != NODE_LENGTH){
+            throw new IllegalArgumentException("Key must have 20 bytes");
+        }
+
         this.address = address;
         this.port = port;
         this.bid = bid;
     }
 
     public Bep42(InetAddress address, int port, String key){
-        if(key.length() != 40){
+        if(key.length() != NODE_LENGTH*2){
             throw new IllegalArgumentException("Hex String must have 40 bytes");
         }
 
         this.address = address;
         this.port = port;
-        bid = new byte[20];
+        bid = new byte[NODE_LENGTH];
 
         for(int i = 0; i < key.length(); i += 2){
             bid[i/2] = (byte) ((Character.digit(key.charAt(i), 16) << 4)+Character.digit(key.charAt(i+1), 16));
@@ -56,7 +61,7 @@ public class Bep42 {
         int crc = (int) c.getValue();
 
         // idk about this stuff below
-        bid = new byte[20];
+        bid = new byte[NODE_LENGTH];
         bid[0] = (byte) ((crc >> 24) & 0xFF);
         bid[1] = (byte) ((crc >> 16) & 0xFF);
         bid[2] = (byte) (((crc >> 8) & 0xF8) | (random.nextInt() & 0x7));
@@ -118,7 +123,7 @@ public class Bep42 {
     }
 
     public String getKey(){
-        StringBuilder sb = new StringBuilder(bid.length*2);
+        StringBuilder sb = new StringBuilder(NODE_LENGTH*2);
 
         sb.append(String.format("%02x", bid[0])+String.format("%02x", bid[1])+String.format("%02x", bid[2])+" ");
 
@@ -127,10 +132,6 @@ public class Bep42 {
         }
 
         sb.append(" "+String.format("%02x", bid[19]));
-
-        //for(byte b : bid){
-        //    sb.append(String.format("%02x", b));
-        //}
         return sb.toString();
     }
 
@@ -144,5 +145,10 @@ public class Bep42 {
 
     private int getInt(int offset){
         return Byte.toUnsignedInt(bid[offset]) << 24 | Byte.toUnsignedInt(bid[offset+1]) << 16 | Byte.toUnsignedInt(bid[offset+2]) << 8 | Byte.toUnsignedInt(bid[offset+3]);
+    }
+
+    @Override
+    public String toString(){
+        return getKey()+" V: "+hasSecureID()+"  "+address.getHostAddress()+":"+port;
     }
 }

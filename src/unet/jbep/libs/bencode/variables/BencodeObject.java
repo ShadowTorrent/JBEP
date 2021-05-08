@@ -1,6 +1,6 @@
-package unet.jbep.bencode.variables;
+package unet.jbep.libs.bencode.variables;
 
-import unet.jbep.bencode.Bencoder;
+import unet.jbep.libs.bencode.Bencoder;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
